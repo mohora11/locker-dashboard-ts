@@ -4,6 +4,7 @@ import LockerBox from './LockerBox';
 
 interface Props {
   lockers: Locker[];  
+  onOpenModal: (locker: Locker) => void;  // onOpenModal 타입 선언 (에러 해결)
 }
 
 const LockerDashboard: React.FC<Props> = ({ lockers }) => {

@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
 import './App.css';
 import LockerDashboard from './components/LockerDashboard';
+import LockerModal from './components/LockerModal';  // 모달 import
 import { lockers } from './data';
 import type { Locker } from './types';
 
 function App() {
   const [filter, setFilter] = useState<'all' | 'empty' | 'inuse' | 'broken'>('all');
+  const [selectedLocker, setSelectedLocker] = useState<Locker | null>(null);  // selectedLocker 선언 (Locker 타입 또는 null)
 
   const filteredLockers = lockers.filter((locker: Locker) => {
     if (filter === 'all') return true;
     if (filter === 'broken') return locker.box_broken_status === 1;
     if (filter === 'empty') return locker.box_broken_status === 0 && locker.box_status === 0;
-    if (filter === 'inuse') return locker.box_broken_status === 0 && locker.box_status !== 0;  // 1,4,6 등
+    if (filter === 'inuse') return locker.box_broken_status === 0 && locker.box_status !== 0;
   });
 
   return (
@@ -23,7 +25,19 @@ function App() {
         <button onClick={() => setFilter('inuse')}>사용중</button>
         <button onClick={() => setFilter('broken')}>고장</button>
       </div>
-      <LockerDashboard lockers={filteredLockers} />
+      <div style={{ pointerEvents: selectedLocker ? 'none' : 'auto' }}>
+        <LockerDashboard 
+          lockers={filteredLockers} 
+          onOpenModal={setSelectedLocker}  // onOpenModal: setSelectedLocker 함수 전달
+        />
+      </div>
+      {selectedLocker && (
+        <LockerModal 
+          isOpen={!!selectedLocker} 
+          onClose={() => setSelectedLocker(null)} 
+          locker={selectedLocker} 
+        />
+      )}
     </div>
   );
 }

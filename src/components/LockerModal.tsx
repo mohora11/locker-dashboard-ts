@@ -26,13 +26,19 @@ const LockerModal: React.FC<Props> = ({ isOpen, onClose, locker }) => {
       isOpen={isOpen}
       onRequestClose={onClose}
       style={{
-        content: {
+        overlay: {  // 추가: overlay 스타일 (배경 덮기)
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',  // 반투명 검정 (시각적 차단)
+          pointerEvents: 'auto',  // 클릭 관통 막기
+          zIndex: 1000,  // 모달 최상위
+        },
+        content: {  // 기존 content 스타일
           top: '50%',
           left: '50%',
           right: 'auto',
           bottom: 'auto',
           marginRight: '-50%',
           transform: 'translate(-50%, -50%)',
+          pointerEvents: 'auto',  // 모달 안 클릭 가능
         },
       }}
     >
