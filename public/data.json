@@ -1,7 +1,5 @@
-import type { Locker } from './types';
-
-export const lockers: Locker[] = [
-    {
+[
+  {
     "locker_id": 1, "box_id": 1,
     "box_status": 6, "box_broken_status": 0,
     "box_starting_date": 1768907010, "box_expiry_date": 1774091010,
@@ -29,4 +27,4 @@ export const lockers: Locker[] = [
     "courier_mobile_num": "01099998888", "onetime_password": null,
     "shape": { "type": 1, "txt": "03", "left": 78, "top": 0, "width": 77, "height": 105 }
   }
-];
+]

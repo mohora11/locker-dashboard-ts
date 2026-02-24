@@ -11,14 +11,12 @@ interface Props {
 const LockerModal: React.FC<Props> = ({ isOpen, onClose, locker }) => {
   const formatDate = (timestamp: number): string => {
     if (timestamp === 0) return 'N/A';
-    const date = new Date(timestamp * 1000);  // Unix to ms
-    return date.toLocaleString('ko-KR', {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-      hour: '2-digit',
-      minute: '2-digit',
-    });
+    const d = new Date(timestamp * 1000);
+    const pad = (n: number) => n.toString().padStart(2, '0');
+    // 요구사항: YYYY-MM-DD HH:mm
+    return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(
+      d.getHours()
+    )}:${pad(d.getMinutes())}`;
   };
 
   return (
